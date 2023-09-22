@@ -7,33 +7,31 @@
 </head>
 <body>
     <div id="app">
-        <button v-on:click="addNumber">add</button>
-        <app-header v-bind:propsdata="num"></app-header>
-        <p>{{ doubleNum }}</p>
+        {{ num }}
+        {{ doubleNum }}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        var appHeader = {
-            template: '<div></div>',
-            props:['propsdata']
-        }
-
         new Vue({
             el:'#app',
             data:{
                 num:10
-            },
-            components:{
-                'app-header':appHeader
             },
             computed:{
                 doubleNum:function(){
                     return this.num * 2;
                 }
             },
+            //무거운 로직들, 매번 실행되기 부담스러운 것
+            watch:{
+                num:function(newValue, oldValue){
+                    this.fetchUserByNumber(newValue);
+                }
+            },
             methods:{
-                addNumber:function(){
-                    this.num = this.num + 1;
+                fetchUserByNumber:function(num){
+                    //console.log(num);
+                    axios.get(num);
                 }
             }
         });
