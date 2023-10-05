@@ -21,3 +21,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# 제외 폴더
+vue-cli/
+vue-form/
+vue-test/
