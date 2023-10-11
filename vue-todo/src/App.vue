@@ -36,7 +36,7 @@ export default {
       },
       toggleOneItem:function(todoItem, index){
         // todoItem.completed = !todoItem.completed; -> 내린 데이터를 다시 올려서 바꾸는 것은 안티패턴, 좋지않음
-        this.todoItems[index].completed = !this.todoItems.completed;//위쪽 데이터를 바꿔주는것이 좋음
+        this.todoItems[index].completed = !this.todoItems[index].completed;//위쪽 데이터를 바꿔주는것이 좋음
         //업데이트
         localStorage.removeItem(todoItem.item);
         localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
