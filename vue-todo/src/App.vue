@@ -19,37 +19,37 @@ import TodoFooter from './components/TodoFooter.vue';
 import TodoList from './components/TodoList.vue';
 
 export default {
-    data:function(){
+    data(){
       return {
         todoItems:[]
       }
     },
     methods:{
-      addOneItems: function(todoItem) {
-        var obj = {completed:false, item:todoItem};
+      addOneItems(todoItem) {
+        const obj = {completed:false, item:todoItem};
         localStorage.setItem(todoItem, JSON.stringify(obj));
         this.todoItems.push(obj);
       },
-      removeOneItem:function(todoItem, index){
+      removeOneItem(todoItem, index){
         localStorage.removeItem(todoItem.item);
         this.todoItems.splice(index, 1);//splice(시작인덱스, 적용갯수)
       },
-      toggleOneItem:function(todoItem, index){
+      toggleOneItem(todoItem, index){
         // todoItem.completed = !todoItem.completed; -> 내린 데이터를 다시 올려서 바꾸는 것은 안티패턴, 좋지않음
         this.todoItems[index].completed = !this.todoItems[index].completed;//위쪽 데이터를 바꿔주는것이 좋음
         //업데이트
         localStorage.removeItem(todoItem.item);
         localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
       },
-      clearAllItem:function(){
+      clearAllItem(){
         localStorage.clear();
         // this.todoItems.splice(0);
         this.todoItems = [];
       }
     },
-    created:function(){
+    created(){
         if(localStorage.length > 0){
-            for(var i=0; i<localStorage.length; i++){
+            for(let i=0; i<localStorage.length; i++){
                 if(localStorage.key(i) !== 'loglevel:webpack-dev-server') {
                     this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
                 }
@@ -57,10 +57,11 @@ export default {
         }
     },
     components:{
-      'TodoHeader':TodoHeader,
-      'TodoInput':TodoInput,
-      'TodoList':TodoList,
-      'TodoFooter':TodoFooter
+      TodoHeader,
+      // 'TodoHeader':TodoHeader,
+      TodoInput,
+      TodoList,
+      TodoFooter
     }
   }
 </script>

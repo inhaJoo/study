@@ -1,59 +1,78 @@
 <template>
-  <form v-on:submit.prevent="submitForm">
-    <div>
-      <label for="username">ID : </label>
-      <input id="username" type="text" v-model="username">
-    </div>
-    <div>
-      <label for="password">PW : </label>
-      <input id="password" type="password" v-model="password">
-    </div>
-    <button type="submit">login</button>
-    <div>
-      <app-header v-bind:propsdata="str"
-      v-on:renew="renewStr"></app-header>
-    </div>
-  </form>
+  <div id="app">
+    <TodoHeader></TodoHeader>
+    <TodoInput v-on:addTodoItem="addOneItems"></TodoInput>
+    <TodoList v-bind:propsdata="todoItems" 
+            v-on:removeItem="removeOneItem"
+            v-on:toggleItem="toggleOneItem"></TodoList>
+    <TodoFooter v-on:clearAll="clearAllItem"></TodoFooter>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import AppHeader from './components/HelloWorld.vue';
+import TodoHeader from './components/TodoHeader.vue'
+import TodoInput from './components/TodoInput.vue'
+import TodoList from './components/TodoList.vue'
+import TodoFooter from './components/TodoFooter.vue'
 
 export default {
-  data:function(){
-    return {
-      username: '',
-      password: '',
-      str : ''
-    }
-  },
-  components:{
-    'app-header':AppHeader
-  },
-  methods: {
-    submitForm : function(){
-      console.log(this.username, this.password);
-      var url = 'https://jsonplaceholder.typicode.com/users';
-      var data = {
-        username : this.username,
-        password : this.password 
+    data:function(){
+      return {
+        todoItems:[]
       }
-      axios.post(url, data)
-        .then(function(response){
-          console.log(response);
-        })
-        .catch(function(error){
-          console.log(error);
-        })
     },
-    renewStr:function() {
-      this.str = 'hi';
+    components:{
+        'TodoHeader':TodoHeader,
+        'TodoInput':TodoInput,
+        'TodoList':TodoList,
+        'TodoFooter':TodoFooter
+    },
+    methods:{
+      addOneItems:function(todoItem){
+        var obj = {completed:false, item:todoItem};
+        localStorage.setItem(todoItem, JSON.stringify(obj));
+        this.todoItems.push(obj);
+      },
+      removeOneItem:function(todoItem, index){
+        localStorage.removeItem(todoItem.item);
+        this.todoItems.splice(index, 1);
+      },
+      toggleOneItem:function(todoItem, index){
+        this.todoItems[index].completed = !this.todoItems[index].completed;
+
+        localStorage.removeItem(todoItem.item);
+        localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      },
+      clearAllItem:function(){
+        localStorage.clear();
+        this.todoItems = [];
+      }
+    },
+    created:function(){
+      if(localStorage.length > 0) {
+        for(var i=0; i<localStorage.length; i++) {
+          if(localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+            this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+          }
+        }
+      }
     }
-  }
 }
 </script>
 
 <style>
-
+body {
+  text-align: center;
+  background-color: #F6F6F6;
+}
+input {
+  border-style: groove;
+  width: 200px;
+}
+button {
+  border-style: groove;
+}
+.shadow {
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+}
 </style>

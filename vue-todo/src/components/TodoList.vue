@@ -1,17 +1,20 @@
 <template>
-  <ul>
-    <li v-for="(todoItem, index) in propsdata" class="shadow" v-bind:key="todoItem.item">
-        <i class="checkBtn fas fa-check" 
-          v-bind:class="{checkBtnCompleted: todoItem.completed}" 
-          v-on:click="toggleComplete(todoItem, index)">
-          check
-        </i>
-        <span>{{ todoItem.item }}</span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
-            <i class="removeBtn fas fa-trash-alt">remove</i>
-        </span>
-    </li>
-  </ul>
+  <div>
+    <transition-group name="list" tag="ul">
+        <li v-for="(todoItem, index) in propsdata" class="shadow" v-bind:key="todoItem.item">
+            <i class="checkBtn fas fa-check" 
+              v-bind:class="{checkBtnCompleted: todoItem.completed}" 
+              v-on:click="toggleComplete(todoItem, index)">
+              check
+            </i>
+            <span>{{ todoItem.item }}</span>
+            <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+                <i class="removeBtn fas fa-trash-alt">remove</i>
+            </span>
+        </li>
+    </transition-group>
+  </div>
+  
 </template>
 
 <script>
@@ -23,13 +26,13 @@ export default {
     //     }
     // },
     methods:{
-        removeTodo:function(todoItem, index){
+        removeTodo(todoItem, index){
             this.$emit('removeItem', todoItem, index);
             // App.vue로 이동
             // this.todoItems.splice(index, 1);//splice(시작인덱스, 적용갯수)
             // localStorage.removeItem(todoItem.item);
         },
-        toggleComplete:function(todoItem, index){
+        toggleComplete(todoItem, index){
             this.$emit('toggleItem', todoItem, index);
             // App.vue로 이동
             // todoItem.completed = !todoItem.completed;
@@ -85,4 +88,13 @@ li {
   margin-left: auto;
   color: #de4343;
 }
+
+/* 리스트 아이템 트랜지션 */
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+} 
 </style>
