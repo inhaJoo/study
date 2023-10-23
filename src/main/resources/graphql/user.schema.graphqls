@@ -1,0 +1,36 @@
+
+schema {
+    query: Query
+    mutation:Mutation
+}
+
+type Query {
+    getUser(oid: String): User
+}
+
+type Mutation {
+    addUser(user: UserAdd): User
+    editUser(user: UserEdit): User
+    removeUser(oid: String!): String
+}
+
+type User{
+    oid: ID
+    userId: String
+    name: String
+    email: String
+}
+
+input UserAdd {
+    oid: ID
+    userId: String
+    name: String
+    email: String
+}
+
+input UserEdit {
+    oid: ID
+    userId: String
+    name: String
+    email: String
+}
