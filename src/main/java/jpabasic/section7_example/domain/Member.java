@@ -1,11 +1,11 @@
-//package jpabasic.section6_example.domain;
+//package jpabasic.section7_example.domain;
 //
 //import javax.persistence.*;
 //import java.util.ArrayList;
 //import java.util.List;
 //
 //@Entity
-//public class Member {
+//public class Member extends BaseEntity{
 //    @Id @GeneratedValue
 //    @Column(name="MEMBER_ID")
 //    private Long id;

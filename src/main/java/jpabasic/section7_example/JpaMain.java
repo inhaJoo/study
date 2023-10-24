@@ -1,4 +1,6 @@
-//package jpabasic.section6_example;
+//package jpabasic.section7_example;
+//
+//import jpabasic.section7_example.domain.Book;
 //
 //import javax.persistence.EntityManager;
 //import javax.persistence.EntityManagerFactory;
@@ -14,11 +16,14 @@
 //        tx.begin();
 //
 //        try {
+//            Book book = new Book();
+//            book.setName("JPA");
+//            book.setAuthor("김영한");
 //
-//
+//            em.persist(book);
 //
 //            tx.commit();
-//        }catch(Exception e){
+//        }catch (Exception e){
 //            tx.rollback();
 //        }finally {
 //            em.close();

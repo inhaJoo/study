@@ -1,21 +1,19 @@
-//package jpabasic.section6_example.domain;
+//package jpabasic.section7_example.domain;
 //
 //import javax.persistence.*;
-//import java.util.ArrayList;
-//import java.util.List;
 //
 //@Entity
-//public class Member {
+//public class Delivery extends BaseEntity{
 //    @Id @GeneratedValue
-//    @Column(name="MEMBER_ID")
+//    @Column(name="DELIVERY_ID")
 //    private Long id;
-//    private String name;
+//    @OneToOne
+//    @JoinColumn(name="ORDER_ID")
+//    private Order order;
 //    private String city;
 //    private String street;
 //    private String zipcode;
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Order> orders = new ArrayList<>();
+//    private DeliveryStatus status;
 //
 //    public Long getId() {
 //        return id;
@@ -25,12 +23,12 @@
 //        this.id = id;
 //    }
 //
-//    public String getName() {
-//        return name;
+//    public Order getOrder() {
+//        return order;
 //    }
 //
-//    public void setName(String name) {
-//        this.name = name;
+//    public void setOrder(Order order) {
+//        this.order = order;
 //    }
 //
 //    public String getCity() {
@@ -55,5 +53,13 @@
 //
 //    public void setZipcode(String zipcode) {
 //        this.zipcode = zipcode;
+//    }
+//
+//    public DeliveryStatus getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(DeliveryStatus status) {
+//        this.status = status;
 //    }
 //}

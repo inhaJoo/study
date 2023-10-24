@@ -1,25 +1,22 @@
-//package jpabasic.section6_example.domain;
+//package jpabasic.section7_example.domain;
 //
 //import javax.persistence.*;
 //import java.util.ArrayList;
 //import java.util.List;
 //
 //@Entity
-//public class Item {
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorColumn
+//public abstract class Item extends BaseEntity{
+//    //아이템만 단독으로 테이블 안 잡는다면 abstract
 //    @Id @GeneratedValue
 //    @Column(name="ITEM_ID")
 //    private Long id;
-//
 //    private String name;
 //    private int price;
 //    private int stockQuantity;
-//
-////    @ManyToOne
-////    @JoinColumn(name="CATEGORY_ID")
+////    @ManyToMany(mappedBy = "item")
 ////    private List<Category> categories = new ArrayList<>();
-//
-//    @ManyToMany(mappedBy = "items")
-//    private List<Category> categories = new ArrayList<>();
 //
 //    public Long getId() {
 //        return id;
@@ -53,11 +50,11 @@
 //        this.stockQuantity = stockQuantity;
 //    }
 //
-//    public List<Category> getCategories() {
-//        return categories;
-//    }
-//
-//    public void setCategories(List<Category> categories) {
-//        this.categories = categories;
-//    }
+////    public List<Category> getCategories() {
+////        return categories;
+////    }
+////
+////    public void setCategories(List<Category> categories) {
+////        this.categories = categories;
+////    }
 //}
