@@ -1,0 +1,14 @@
+//변수 유효범위(Variable Scope)
+//var, let, const
+
+function scope(){
+    console.log(b);
+    if(true){
+        const a = 123//let, const는 블록레벨에서 유효
+        console.log(a);
+
+        var b = 111
+    }
+    console.log(b);//function 레벨에서 유효
+}
+scope()
