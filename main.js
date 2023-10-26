@@ -1,31 +1,13 @@
-class Vehicle {
-    constructor(name, wheel){
-        this.name = name
-        this.wheel = wheel
-    }
-}
-const myVehicle = new Vehicle('운송수단', 2)
-console.log(myVehicle);
+//String
 
-class Bicycle extends Vehicle {
-    constructor(name, wheel){
-        super(name, wheel)
-    }
-}
-const myBicycle = new Bicycle('삼천리', 2)
-const daughtersBicycle = new Bicycle('세발', 3)
-console.log(myBicycle);
-console.log(daughtersBicycle);
+const result = 'Hello World!'.indexOf('World')
+console.log(result);
 
-class Car extends Vehicle{
-    constructor(name, wheel, license) {
-        super(name, wheel)
-        this.license = license
-    }
-}
-const myCar = new Car('벤츠', 4, true)
-const daughtersCar = new Car('포르쉐', 4, false)
+const str = '0123'
+console.log('str길이: ',str.length);
 
-console.log(myCar);
-console.log(daughtersCar);
-console.log(myVehicle);
+console.log('Hello world!'.indexOf('HEROPY') !== -1);
+console.log('Hello world!'.slice(6,11));// slice(시작인덱스, 직전인덱스)
+console.log('Hello world!'.replace('world', 'HEROPY'));//replace(기존문자열, 변경문자열) + 띄워쓰기 가능
+console.log('thesecon@gmail.com'.match(/.+(?=@)/)[0]);//정규표현식
+console.log('   Hello world!   '.trim());
