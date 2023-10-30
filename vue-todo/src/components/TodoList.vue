@@ -1,46 +1,62 @@
 <template>
   <div>
     <transition-group name="list" tag="ul">
-        <li v-for="(todoItem, index) in propsdata" class="shadow" v-bind:key="todoItem.item">
+        <li v-for="(todoItem, index) in storedTodoItems" v-bind:key="todoItem.item" class="shadow">
             <i class="checkBtn fas fa-check" 
               v-bind:class="{checkBtnCompleted: todoItem.completed}" 
-              v-on:click="toggleComplete(todoItem, index)">
+              v-on:click="toggleComplete({todoItem, index})">
               check
             </i>
             <span>{{ todoItem.item }}</span>
-            <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+            <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
                 <i class="removeBtn fas fa-trash-alt">remove</i>
             </span>
         </li>
     </transition-group>
   </div>
-  
 </template>
 
-<script>
+<script>  
+import { mapGetters, mapMutations } from 'vuex'
 export default {
-    props:['propsdata'],
+    // props:['propsdata'],
+
     // data:function(){
     //     return {
     //         todoItems:[]
     //     }
     // },
     methods:{
-        removeTodo(todoItem, index){
-            this.$emit('removeItem', todoItem, index);
-            // App.vue로 이동
-            // this.todoItems.splice(index, 1);//splice(시작인덱스, 적용갯수)
-            // localStorage.removeItem(todoItem.item);
-        },
-        toggleComplete(todoItem, index){
-            this.$emit('toggleItem', todoItem, index);
-            // App.vue로 이동
-            // todoItem.completed = !todoItem.completed;
-            // // 업데이트
-            // localStorage.removeItem(todoItem.item);
-            // localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+        ...mapMutations({
+          removeTodo: 'removeOneItem',
+          toggleComplete: 'toggleOneItem'
+        }),
+        // removeTodo(todoItem, index){
+        //     this.$store.commit('removeOneItem', {todoItem, index});
+        //     //this.$emit('removeItem', todoItem, index);
+        //     // App.vue로 이동
+        //     // this.todoItems.splice(index, 1);//splice(시작인덱스, 적용갯수)
+        //     // localStorage.removeItem(todoItem.item);
+        // },
+        // toggleComplete(todoItem, index){
+        //     this.$store.commit('toggleOneItem', {todoItem, index});
+        //     //this.$emit('toggleItem', todoItem, index);
+        //     // App.vue로 이동
+        //     // todoItem.completed = !todoItem.completed;
+        //     // // 업데이트
+        //     // localStorage.removeItem(todoItem.item);
+        //     // localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+        // },
+    },
+    computed: {
+          // todoItems(){
+          //   return this.$store.getters.storedTodoItems;
+          // }
+          // ...mapGetters({
+          //   todoItems: 'storedTodoItems'
+          // })
+          ...mapGetters(['storedTodoItems'])
         }
-    }
     // ,
     // created:function(){
     //     if(localStorage.length > 0){

@@ -27,6 +27,7 @@
 
 <script>
 import Modal from './common/AlertModal.vue'
+//import { mapMutations } from 'vuex';
 
 //default는 한개의 파일에서 하나만 export 됨.
 export default {
@@ -37,10 +38,17 @@ export default {
         }
     },
     methods:{
+      // ...mapMutations({
+      //   addTodo : 'addOneItems',
+      //   clearInput(){
+      //     this.newTodoItem = '';
+      //   }
+      // })
         addTodo(){
             if(this.newTodoItem !== ''){
                 // this.$emit('이벤트 이름', 인자1, 인자2, ...)
-                this.$emit('addTodoItem', this.newTodoItem);
+                // this.$emit('addTodoItem', this.newTodoItem);
+                this.$store.commit('addOneItems', this.newTodoItem);
                 this.clearInput();
             }else {
               this.showModal = !this.showModal;
