@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/jquery-1.8.2.min.js}"></script>
+    <script th:src="@{/jquery.serialize-object.min.js}"></script>
+</head>
+<script>
+    function ajaxPost() {
+        let form = $("#frm2").serializeObject();
+        $.ajax({
+            type:'POST',
+            url:'members',
+            headers:{"content-type": "application/json"},
+            dataType:'json',
+            data:JSON.stringify(form),
+            success:function(data) {
+                alert('성공')
+            },
+            error:function(request, status, error) {
+                alert(request, status, error);
+            }
+        })
+    }
+</script>
+<body>
+    <p>html post 전송</p>
+    <form name="frm" action="/members/html" method="post">
+        <label for="id">아이디: </label><input type="text" name="id" value="" /><br>
+        <label for="userName">유저명 : </label><input type="text" name="userName" value="" /><br>
+        <label for="email">이메일 : </label><input type="text" name="email" value="" /><br>
+        <button type="submit">전송</button>
+    </form>
+    <p>ajax post 전송</p>
+    <form name="frm2">
+        <label for="id">아이디: </label><input type="text" id="id" name="id" value="" /><br>
+        <label for="userName">유저명 : </label><input type="text" id="userName" name="userName" value="" /><br>
+        <label for="email">이메일 : </label><input type="text" id="email" name="email" value="" /><br>
+        <button type="button" onclick="ajaxPost()">전송</button>
+    </form>
+    <p>ajax post redirect 전송</p>
+    <form name="frm3" action="/members/redirect" method="post">
+        <button type="submit">리다이렉트</button>
+    </form>
+</body>
+</html>
